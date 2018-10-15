@@ -12,10 +12,8 @@ from _db import DBController as db
 print("Content-Type: application/json;charset=utf-8")
 print("")
 
-# GET /apt/weather/find?sensor=<name>
+# GET /weather/api/find?sensor=<name>
 form = cgi.FieldStorage()
-#   environ={'REQUEST_METHOD': 'GET'}
-#)
 
 # response data
 # [{

@@ -13,10 +13,9 @@ from datetime import datetime
 print("Content-Type: application/json;charset=utf-8")
 print("")
 
-# POST /apt/weather/add
+# POST /weather/api/add
 form = cgi.FieldStorage()
 #    environ={'REQUEST_METHOD': 'POST'}
-# )
 
 # Get data from request
 # {
