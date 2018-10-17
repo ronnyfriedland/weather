@@ -11,7 +11,7 @@ url = 'https://192.168.8.10:3080/intranet/weather/api/add.py'
 
 sensor=Adafruit_DHT.DHT22 #if not using DHT22, replace with Adafruit_DHT.DHT11 or Adafruit_DHT.AM2302
 
-parser = argparse.ArgumentParser(description='Read from DHT22 sensor and optionally writes into database')
+parser = argparse.ArgumentParser(description='Read from DHT22 sensor')
 parser.add_argument('--sensor', dest='sensor',
                    help='Defines the name of the sensor (default: null)')
 parser.add_argument('--pin', dest='pin',
@@ -19,7 +19,7 @@ parser.add_argument('--pin', dest='pin',
 args = parser.parse_args()
 
 
-def readInfo():
+def readdata():
 
     """
     Reads the data from sensor and calls the api to persist the data
@@ -34,7 +34,7 @@ def readInfo():
         # save data / call service
         data = {"data": """{"sensor-name": "%s", "temperature" : %s, "humidity": %s, "date": "%s"}""" % (args.sensor, temperature, humidity, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))}
 
-        response = requests.post(url, data=data, verify=False)
+        response = requests.post(url, data=data, verify=False) # TODO: fixme
 
         sys.exit(response.status != 200)
     else:
@@ -42,4 +42,4 @@ def readInfo():
         sys.exit(1)
 
 
-readInfo()
+readdata()
