@@ -3,7 +3,6 @@ import sys
 import Adafruit_DHT
 import argparse
 import requests
-import json
 
 from datetime import datetime
 
@@ -27,8 +26,8 @@ def readdata():
 
     humidity, temperature = Adafruit_DHT.read_retry(sensor, args.pin)#read_retry - retry getting temperatures for 15 times
 
-    print "Temperature: %.1f C" % temperature
-    print "Humidity:    %.1f %%" % humidity
+    print("Temperature: %.1f C" % temperature)
+    print("Humidity:    %.1f %%" % humidity)
 
     if humidity is not None and temperature is not None:
         # save data / call service
@@ -38,7 +37,7 @@ def readdata():
 
         sys.exit(response.status != 200)
     else:
-        print 'Failed to get reading. Try again!'
+        print("Failed to get reading. Try again!")
         sys.exit(1)
 
 

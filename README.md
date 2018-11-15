@@ -25,11 +25,21 @@ curl https://192.168.8.10:3080/intranet/weather/api/add.py -k -d "data={\"temper
 ```
 ## find all
 
+### required parameter
+
+- sensor: name of the sensor
+- from: minimum date
+- to: maximum date
+
 ```
 curl https://192.168.8.10:3080/intranet/weather/api/find.py?sensor=testsensor -k
 ```
 
 ## find recent
+
+### required parameter
+
+- sensor: name of the sensor
 
 ```
 curl https://192.168.8.10:3080/intranet/weather/api/findrecent.py?sensor=testsensor -k

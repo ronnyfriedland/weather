@@ -23,8 +23,10 @@ form = cgi.FieldStorage()
 #  humidity: <humidity>
 # }]
 sensor = form.getvalue('sensor')
+fromdate = form.getvalue('from')
+todate = form.getvalue('to')
 
 if sensor is None:
     print("{ error: No sensor supplied }")
 else:
-    print(json.dumps(db.getallvalues(sensor), sort_keys=True, default=str))
+    print(json.dumps(db.getallvalues(sensor, fromdate, todate), sort_keys=True, default=str))

@@ -76,7 +76,7 @@ class DBController:
         return result
 
     @staticmethod
-    def getallvalues(sensorname):
+    def getallvalues(sensorname, fromdate, todate):
         """
         Retrieves all records for the given sensor
         :param sensorname: the name of the sensor
@@ -90,9 +90,9 @@ class DBController:
             cur = myConnection.cursor()
             cur.execute(
                 """
-                    select sensor, measuredate, temperature, humidity from temperatures 
-                    where sensor = %s order by measuredate desc
-                """, (sensorname,))
+                    select sensor, measuredate, temperature, humidity from temperatures
+                    where sensor = %s and measuredate > %s and measuredate < %s order by measuredate desc
+                """, (sensorname,fromdate,todate,))
             rows = cur.fetchall()
             for row in rows:
                 result.append({"sensor": row[0], "measuredate": row[1], "temperature": row[2], "humidity": row[3]})
@@ -102,6 +102,7 @@ class DBController:
             DBController.closeconnection(myConnection)
 
         return result
+
 
     @staticmethod
     def openconnection():
