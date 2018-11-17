@@ -91,7 +91,7 @@ class DBController:
             cur.execute(
                 """
                     select sensor, measuredate, temperature, humidity from temperatures
-                    where sensor = %s and measuredate > %s and measuredate < %s order by measuredate desc
+                    where sensor = %s and measuredate > %s and measuredate < %s order by measuredate asc
                 """, (sensorname,fromdate,todate,))
             rows = cur.fetchall()
             for row in rows:
