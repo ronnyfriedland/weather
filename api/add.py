@@ -11,7 +11,6 @@ from datetime import datetime
 #cgitb.enable()
 
 print("Content-Type: application/json;charset=utf-8")
-print("")
 
 # POST /weather/api/add
 form = cgi.FieldStorage()
@@ -41,13 +40,24 @@ humidity = data['humidity']
 
 # validate
 if date is None:
+    print("Status: 412 Precondition failed")
+    print("")
     print("{ error: No date supplied }")
 if sensorName is None:
+    print("Status: 412 Precondition failed")
+    print("")
     print("{ error: No sensor name supplied }")
 if temperature is None:
+    print("Status: 412 Precondition failed")
+    print("")
     print("{ error: No temperature supplied }")
 if humidity is None:
+    print("Status: 412 Precondition failed")
+    print("")
     print("{ error: No humidity supplied }")
 
 # persist
 db.addvalue(sensorName, datetime.strptime(date, "%Y-%m-%d %H:%M:%S"), temperature, humidity)
+
+print("Status: 201 Created")
+print("")

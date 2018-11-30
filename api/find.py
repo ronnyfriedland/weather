@@ -10,7 +10,6 @@ from _db import DBController as db
 #cgitb.enable()
 
 print("Content-Type: application/json;charset=utf-8")
-print("")
 
 # GET /weather/api/find?sensor=<name>
 form = cgi.FieldStorage()
@@ -27,6 +26,10 @@ fromdate = form.getvalue('from')
 todate = form.getvalue('to')
 
 if sensor is None:
+    print("Status: 412 Precondition failed")
+    print("")
     print("{ error: No sensor supplied }")
 else:
+    print("Status: 200 OK")
+    print("")
     print(json.dumps(db.getallvalues(sensor, fromdate, todate), sort_keys=True, default=str))

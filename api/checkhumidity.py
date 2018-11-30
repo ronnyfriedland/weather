@@ -10,7 +10,6 @@ from _db import DBController as db
 # cgitb.enable()
 
 print("Content-Type: application/json;charset=utf-8")
-print("")
 
 # GET /weather/api/checkhumidity?sensor1=<name>&sensor2=<name>
 form = cgi.FieldStorage()
@@ -33,8 +32,12 @@ sensor1 = form.getvalue('sensor1')
 sensor2 = form.getvalue('sensor2')
 
 if sensor1 is None:
+    print("Status: 412 Precondition failed")
+    print("")
     print("{ error: No sensor1 supplied }")
 elif sensor2 is None:
+    print("Status: 412 Precondition failed")
+    print("")
     print("{ error: No sensor2 supplied }")
 else:
     recent1 = db.getrecentvalue(sensor1)
@@ -51,4 +54,6 @@ else:
               sensor2: {"temperature": recent2["temperature"], "humidity": recent2["humidity"]},
               "ok" : (abs_sensor2 < abs_sensor1)}
 
+    print("Status: 200 OK")
+    print("")
     print(json.dumps(result, sort_keys=True, default=str))
