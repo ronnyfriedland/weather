@@ -33,22 +33,30 @@ curl_close($ch);
     <div class="container rounded">
       <div class="row ml-1">
         <div class="col text-light p-3">
+          Buero
+        </div>
+        <div class="col text-light p-3">
+          Aussen
+        </div>
+      </div>
+      <div class="row ml-1">
+        <div class="col text-light p-3">
           Temperatur:
-          <span class="lead strong"><? echo number_format($data['buero']['temperature'], 1); ?> &deg;C</span>
+          <span class="display-4 strong"><? echo number_format($data['buero']['temperature'], 1); ?> &deg;C</span>
         </div>
         <div class="col text-light p-3">
           Temperatur:
-          <span class="lead strong"><? echo number_format($data['aussen']['temperature'], 1); ?> &deg;C</span>
+          <span class="display-4 strong"><? echo number_format($data['aussen']['temperature'], 1); ?> &deg;C</span>
         </div>
       </div>
       <div class="row ml-1">
         <div class="col text-warning p-3">
           Luftfeuchte:
-          <span class="lead strong"><? echo number_format($data['buero']['humidity'], 1); ?> &#37;</span>
+          <span class="display-4 strong"><? echo number_format($data['buero']['humidity'], 1); ?> &#37;</span>
         </div>
         <div class="col text-warning p-3">
           Luftfeuchte:
-          <span class="lead strong"><? echo number_format($data['aussen']['humidity'], 1); ?> &#37;</span>
+          <span class="display-4 strong"><? echo number_format($data['aussen']['humidity'], 1); ?> &#37;</span>
         </div>
       </div>
       <div class="row rounded justify-content-center align-self-center">
