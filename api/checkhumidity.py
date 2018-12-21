@@ -31,14 +31,16 @@ form = cgi.FieldStorage()
 sensor1 = form.getvalue('sensor1')
 sensor2 = form.getvalue('sensor2')
 
+
+def handlePreconditionFailed(error):
+    print("Status: 412 Precondition failed")
+    print("")
+    print(error)
+
 if sensor1 is None:
-    print("Status: 412 Precondition failed")
-    print("")
-    print("{ error: No sensor1 supplied }")
+    handlePreconditionFailed("{ error: No sensor1 supplied }")
 elif sensor2 is None:
-    print("Status: 412 Precondition failed")
-    print("")
-    print("{ error: No sensor2 supplied }")
+    handlePreconditionFailed("{ error: No sensor2 supplied }")
 else:
     recent1 = db.getrecentvalue(sensor1)
     recent2 = db.getrecentvalue(sensor2)

@@ -38,23 +38,22 @@ sensorName = data['sensor-name']
 temperature = data['temperature']
 humidity = data['humidity']
 
+
+def handlePreconditionFailed(error):
+    print("Status: 412 Precondition failed")
+    print("")
+    print(error)
+
+
 # validate
 if date is None:
-    print("Status: 412 Precondition failed")
-    print("")
-    print("{ error: No date supplied }")
+    handlePreconditionFailed("{ error: No date supplied }")
 if sensorName is None:
-    print("Status: 412 Precondition failed")
-    print("")
-    print("{ error: No sensor name supplied }")
+    handlePreconditionFailed("{ error: No sensor name supplied }")
 if temperature is None:
-    print("Status: 412 Precondition failed")
-    print("")
-    print("{ error: No temperature supplied }")
+    handlePreconditionFailed("{ error: No temperature supplied }")
 if humidity is None:
-    print("Status: 412 Precondition failed")
-    print("")
-    print("{ error: No humidity supplied }")
+    handlePreconditionFailed("{ error: No humidity supplied }")
 
 # persist
 db.addvalue(sensorName, datetime.strptime(date, "%Y-%m-%d %H:%M:%S"), temperature, humidity)
