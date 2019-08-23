@@ -3,7 +3,7 @@
 import cgi
 import json
 
-from _db import DBController as db
+from _influxdb import InfluxDBController as db
 
 # Enable debug
 #import cgitb
@@ -30,4 +30,4 @@ if sensor is None:
 else:
     print("Status: 200 OK")
     print("")
-    print(json.dumps(db.getrecentvalue(sensor), sort_keys=True, default=str))
+    print(json.dumps(db.get_recent_value(sensor), sort_keys=True, default=str))

@@ -5,7 +5,7 @@ import psycopg2
 import _config as config
 
 
-class DBController:
+class SqlDBController:
     """
     create table temperatures(
         id serial PRIMARY KEY,
@@ -21,7 +21,7 @@ class DBController:
         pass
 
     @staticmethod
-    def addvalue(sensorname, date, temperature, humidity):
+    def add_value(sensorname, date, temperature, humidity):
         """
         Writes a new entry with the given parameters into database
         :param sensorname: the name of the sensor - should be unique
@@ -35,7 +35,7 @@ class DBController:
         """
         myConnection = None
         try:
-            myConnection = DBController.openconnection()
+            myConnection = SqlDBController.openconnection()
             cur = myConnection.cursor()
             cur.execute(
                 """
@@ -47,10 +47,10 @@ class DBController:
         except Exception as e:
             raise Exception("Error writing data", e)
         finally:
-            DBController.closeconnection(myConnection)
+            SqlDBController.closeconnection(myConnection)
 
     @staticmethod
-    def getrecentvalue(sensorname):
+    def get_recent_value(sensorname):
         """
         Retrieves the most recent record for the given sensor
         :param sensorname: the name of the sensor
@@ -59,7 +59,7 @@ class DBController:
         """
         myConnection = None
         try:
-            myConnection = DBController.openconnection()
+            myConnection = SqlDBController.openconnection()
             cur = myConnection.cursor()
             cur.execute(
                 """
@@ -71,12 +71,12 @@ class DBController:
         except Exception as e:
             raise Exception("Error reading data", e)
         finally:
-            DBController.closeconnection(myConnection)
+            SqlDBController.closeconnection(myConnection)
 
         return result
 
     @staticmethod
-    def getallvalues(sensorname, fromdate, todate):
+    def get_all_values(sensorname, fromdate, todate):
         """
         Retrieves all records for the given sensor
         :param sensorname: the name of the sensor
@@ -86,7 +86,7 @@ class DBController:
         result = list()
         myConnection = None
         try:
-            myConnection = DBController.openconnection()
+            myConnection = SqlDBController.openconnection()
             cur = myConnection.cursor()
             cur.execute(
                 """
@@ -99,7 +99,7 @@ class DBController:
         except Exception as e:
             raise Exception("Error reading data", e)
         finally:
-            DBController.closeconnection(myConnection)
+            SqlDBController.closeconnection(myConnection)
 
         return result
 
@@ -110,12 +110,12 @@ class DBController:
         Opens a new database connection
         :return: the database connection
         """
-        connection = psycopg2.connect(host=config.DATABASE_CONFIG['hostname'],
-                                      port=config.DATABASE_CONFIG['port'],
-                                      user=config.DATABASE_CONFIG['username'],
-                                      password=config.DATABASE_CONFIG['password'],
-                                      dbname=config.DATABASE_CONFIG['database'],
-                                      sslmode=config.DATABASE_CONFIG['sslmode'])
+        connection = psycopg2.connect(host=config.SQL_DATABASE_CONFIG['hostname'],
+                                      port=config.SQL_DATABASE_CONFIG['port'],
+                                      user=config.SQL_DATABASE_CONFIG['username'],
+                                      password=config.SQL_DATABASE_CONFIG['password'],
+                                      dbname=config.SQL_DATABASE_CONFIG['database'],
+                                      sslmode=config.SQL_DATABASE_CONFIG['sslmode'])
         return connection
 
     @staticmethod

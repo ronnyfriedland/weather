@@ -44,3 +44,19 @@ curl https://192.168.8.10:3080/intranet/weather/api/find.py?sensor=testsensor -k
 ```
 curl https://192.168.8.10:3080/intranet/weather/api/findrecent.py?sensor=testsensor -k
 ```
+
+# Backends
+
+## SQL
+
+Tested with postgresql 9.6
+
+To use sql backend use the following import:
+
+`from _sqldb import SqlDBController as db`
+
+## Influxdb
+
+To use Influxdb backend use the following import:
+
+`from _influxdb import InfluxDBController as db`

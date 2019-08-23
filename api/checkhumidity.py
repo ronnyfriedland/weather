@@ -3,7 +3,7 @@
 import cgi
 import json
 
-from _db import DBController as db
+from _influxdb import InfluxDBController as db
 
 # Enable debug
 # import cgitb
@@ -42,8 +42,8 @@ if sensor1 is None:
 elif sensor2 is None:
     handlePreconditionFailed("{ error: No sensor2 supplied }")
 else:
-    recent1 = db.getrecentvalue(sensor1)
-    recent2 = db.getrecentvalue(sensor2)
+    recent1 = db.get_recent_value(sensor1)
+    recent2 = db.get_recent_value(sensor2)
 
     abs_sensor1 = (((0.000002 * pow(recent1['temperature'], 4)) + (0.0002 * pow(recent1['temperature'], 3)) + (
                 0.0095 * pow(recent1['temperature'], 2)) + (0.337 * recent1['temperature']) + 4.9034) * recent1[

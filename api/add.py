@@ -3,7 +3,7 @@
 import cgi
 import json
 
-from _db import DBController as db
+from _influxdb import InfluxDBController as db
 from datetime import datetime
 
 # Enable debug
@@ -14,7 +14,6 @@ print("Content-Type: application/json;charset=utf-8")
 
 # POST /weather/api/add
 form = cgi.FieldStorage()
-#    environ={'REQUEST_METHOD': 'POST'}
 
 # Get data from request
 # {
@@ -56,7 +55,7 @@ if humidity is None:
     handlePreconditionFailed("{ error: No humidity supplied }")
 
 # persist
-db.addvalue(sensorName, datetime.strptime(date, "%Y-%m-%d %H:%M:%S"), temperature, humidity)
+db.add_value(sensorName, datetime.strptime(date, "%Y-%m-%d %H:%M:%S"), temperature, humidity)
 
 print("Status: 201 Created")
 print("")
