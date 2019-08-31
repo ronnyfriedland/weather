@@ -16,21 +16,22 @@ class Temperature {
     $ch = curl_init();
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // TODO: fixme
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // TODO: fixme
 
     if(strpos($period,"Week")!==false) { //last week
-        $fromdate = date('Y-m-d', strtotime('-7 days'));
-        $todate = date('Y-m-d', strtotime('+1 day'));
+        $fromdate = date('Y-m-d H:i:s', strtotime('-7 days'));
+        $todate = date('Y-m-d H:i:s', strtotime('+1 day'));
 
         curl_setopt($ch, CURLOPT_URL, "https://" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . "/intranet/weather/api/find.py?sensor=". $sensor . "&from=" . $fromdate . "&to=" . $todate);
     } else if(strpos($period,"Month")!==false) { //last month
-        $fromdate = date('Y-m-d', strtotime('-30 days'));
-        $todate = date('Y-m-d', strtotime('+1 day'));
+        $fromdate = date('Y-m-d H:i:s', strtotime('-30 days'));
+        $todate = date('Y-m-d H:i:s', strtotime('+1 day'));
 
         curl_setopt($ch, CURLOPT_URL, "https://" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . "/intranet/weather/api/find.py?sensor=". $sensor . "&from=" . $fromdate . "&to=" . $todate);
     } else if(strpos($period,"Today")!==false) { //current day
-        $fromdate = date('Y-m-d');
-        $todate = date('Y-m-d', strtotime('+1 day'));
+        $fromdate = date('Y-m-d H:i:s', strtotime('-1 day'));
+        $todate = date('Y-m-d H:i:s');
 
         curl_setopt($ch, CURLOPT_URL, "https://" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . "/intranet/weather/api/find.py?sensor=". $sensor . "&from=" . $fromdate . "&to=" . $todate);
     } else { // current / last value

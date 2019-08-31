@@ -14,6 +14,7 @@ print("Content-Type: application/json;charset=utf-8")
 
 # POST /weather/api/add
 form = cgi.FieldStorage()
+#    environ={'REQUEST_METHOD': 'POST'}
 
 # Get data from request
 # {
@@ -36,7 +37,6 @@ date = data['date']
 sensorName = data['sensor-name']
 temperature = data['temperature']
 humidity = data['humidity']
-
 
 def handlePreconditionFailed(error):
     print("Status: 412 Precondition failed")

@@ -2,6 +2,7 @@
 $ch = curl_init();
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // TODO: fixme
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // TODO: fixme
 
 curl_setopt($ch, CURLOPT_URL, "https://" . $_SERVER['SERVER_NAME'] . ":" . $_SERVER['SERVER_PORT'] . "/intranet/weather/api/checkhumidity.py?sensor1=buero&sensor2=aussen");

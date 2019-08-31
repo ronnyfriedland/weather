@@ -28,7 +28,7 @@ class InfluxDBController:
             data = [
                 {
                     "measurement": sensorname,
-                    "time": int(date.timestamp()),
+                    "time": date,
                     "fields": {
                         "temperature": temperature,
                         "humidity": humidity
@@ -79,11 +79,11 @@ class InfluxDBController:
         myConnection = None
         try:
             myConnection = InfluxDBController.openconnection()
-            rows = myConnection.query("select time, temperature, humidity from " + sensorname + " where time >= " + str(
-                int(fromdate.timestamp())) + " and time < " + str(int(todate.timestamp()))).get_points()
+            rows = myConnection.query("select time, temperature, humidity from " + sensorname + " where time >= '" +
+                                      fromdate + "' and time < '" + todate + "'").get_points()
             for row in rows:
-                result = {"sensor": sensorname, "measuredate": row['time'], "temperature": row['temperature'],
-                          "humidity": row['humidity']}
+                result.append({"sensor": sensorname, "measuredate": row['time'], "temperature": row['temperature'],
+                          "humidity": row['humidity']})
         except Exception as e:
             raise Exception("Error reading data", e)
         finally:
@@ -103,7 +103,7 @@ class InfluxDBController:
                                     config.INFLUX_DATABASE_CONFIG['password'],
                                     config.INFLUX_DATABASE_CONFIG['database'])
 
-        connection.create_database(config.DATABASE_CONFIG['database'])
+        connection.create_database(config.INFLUX_DATABASE_CONFIG['database'])
 
         return connection
 
