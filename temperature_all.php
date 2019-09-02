@@ -18,6 +18,9 @@
             var jsonData = $.ajax({
               url: "/intranet/weather/getDataToday.php",
               dataType: "json",
+              data : {
+                "sensor": "aussen"
+              },
               async: false
             }).responseText;
       
@@ -39,6 +42,9 @@
             var jsonData = $.ajax({
               url: "/intranet/weather/getDataWeek.php",
               dataType: "json",
+              data : {
+                "sensor": "aussen"
+              },
               async: false
             }).responseText;
       
@@ -60,6 +66,9 @@
             var jsonData = $.ajax({
               url: "/intranet/weather/getDataMonth.php",
               dataType: "json",
+              data : {
+                "sensor": "aussen"
+              },
               async: false
             }).responseText;
       

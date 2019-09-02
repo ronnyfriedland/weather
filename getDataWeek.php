@@ -4,7 +4,7 @@
 
   $result = array();
   array_push($result, array('day','temperature','humidity'));
-  $data = Temperature::getData("buero", "Week");
+  $data = Temperature::getData(urlencode($_GET['sensor']), "Week");
   foreach ($data as $value) {
     array_push($result, array(date("d.m.", strtotime($value['measuredate'])), $value['temperature'], $value['humidity']));
   }
