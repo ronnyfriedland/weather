@@ -8,14 +8,23 @@ from datetime import datetime
 
 url = 'https://192.168.8.10:3080/intranet/weather/api/add.py'
 
-sensor=Adafruit_DHT.DHT22 #if not using DHT22, replace with Adafruit_DHT.DHT11 or Adafruit_DHT.AM2302
-
-parser = argparse.ArgumentParser(description='Read from DHT22 sensor')
+parser = argparse.ArgumentParser(description='Read from DHT22 sensor and optionally writes into database')
 parser.add_argument('--sensor', dest='sensor',
                    help='Defines the name of the sensor (default: null)')
 parser.add_argument('--pin', dest='pin',
                    help='Defines the pin number (default: null)')
+parser.add_argument('--type', dest='type', default='DHT11',
+                   help='The sensor type (default: DHT11)')
+parser.set_defaults(storetodb=False)
 args = parser.parse_args()
+
+
+if args.type == 'DHT11':
+  sensor=Adafruit_DHT.DHT22
+elif args.type == 'DHT22':
+  sensor=Adafruit_DHT.DHT11
+else:
+  sensor=Adafruit_DHT.AM2302
 
 
 def readdata():
